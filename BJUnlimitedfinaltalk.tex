@@ -69,11 +69,12 @@ Danni Tang\\
 {\small \tableofcontents}
 \end{frame}
 
-
 \section{Introduction}
 
+\subsection{Importance of Cheering}
+
 \begin{frame}
-	\frametitle{Advantage in Sports}
+	\frametitle{The Importance of Cheering in Sports}
 		\begin {itemize}
 			\item A loud and supportive home crowd is the ultimate home team advantage for sports teams
 			\item Home crowd advantage effects the result of the game, shown by past research:
@@ -98,6 +99,8 @@ Danni Tang\\
 	\item Cheering is essential at collegiate sporting events; improves experience for both teams and the fans
 	\end{itemize}
 \end{frame}
+
+\subsection{The Johns Hopkins Blue Jays}
 
 \begin{frame}
 	\frametitle{The Johns Hopkins Blue Jays}
@@ -240,131 +243,88 @@ Danni Tang\\
 		\end {itemize}
 \end{frame}
 
-\section {Approach}
-
-\subsection {Overview}
-
-\begin {frame}
-	\frametitle {Overview of Entire Model}
-	\begin{itemize}
-		\item Two models will be created: single fan model and multi fan model
-		\item Single fan model will be stochastic in nature and will determine if a single fan starts to cheer
-		\item Multi fan model will use the single fan model to simulate a large crowd of fans
+\section{Analysis and Simualtion}
+\begin{frame}
+\frametitle{Simplifications and Assumptions}
+\begin{itemize}
+	\item The willingness of a fan in a crowd to cheer depends on the number of people cheering around the given fan and how long the surrounding people have been cheering. 
+	\item The greater the number of people surrounding a fan who are cheering, and the longer the surrounding people have been cheering, the more likely that fan will start to cheer.
+	\item The innate support level a fan has for the team also influences the willingness of that fan to start cheering.
+	\item A cheering fan continues cheering until the end of the simulation.
+	\item The performance of the sports team does NOT influence cheering.
 	\end{itemize}
-\end {frame}
-
-\subsection{Single Fan Model}
-
-\begin {frame}
-	\frametitle {A Model for a Single Fan: General Parameters}
-	\begin{itemize}
-		\item Stochastic model will use serveral parameters/variables to calculate a \emph{cheering metric}, $C_{Total}$, which determines whether a fan will participate in cheering
-		\begin{itemize}
-			\item Fan's innate level of support of the team
-			\item Number of fans around a given fan who are cheering
-			\item Threshold of cheering 
-		\end{itemize}
-	\end {itemize}
-\end {frame}
-
-\begin {frame}
-	\frametitle{A Model for a Single Fan: Fan's Innate Level of Support for Team}
-	\begin{itemize}
-		\item The greater the level of support a fan has for a team, the more likely he/she will cheer his/her team on.
-		\item Model for single fan is stochastic in that the support level for the team will be randomized between fans
-		\item This more accurately reflects reality where different fans can have different levels of support for the same team.
-	\end{itemize}
-\end {frame}
-
-\begin{frame}
-	\frametitle{A Model for a Single Fan: Fan's Innate Level of Support for Team}
-	\begin {columns}
-		\begin {column} {0.5\textwidth}
-			\begin{itemize}
-				\item Currently thinking of using a Normal Distribution (a bell curve) to randomly assign a score to represent a fan's innate support level.
-				\item The majority of fans who go to sporting events are average fans who go to games because they like the team. A smaller proportion of fans at sporting events are are fanatics for the team. A smaller proportion are also spectators who don't care for the team.
-			\end{itemize}
-		\end {column}
-		\begin {column} {0.5\textwidth}
-		\begin{figure}
-		\begin{center}
-			\includegraphics [width=2in] {NormDistribution.jpg}
-			\caption{{\tiny MATLAB plot of a normal distribution with a mean of 5 and a standard deviation of 1.}}
-		\end{center}
-		\end{figure}
-		\end {column}
-	\end {columns}	
 \end{frame}
 
-\begin {frame}
-	\frametitle {A Model for a Single Fan: Number of Fans Surrounding a Fan Who Are Cheering}
-		\begin{itemize}
-			\item The more people surrounding a fan who are cheering, the more likely the fan is to join the cheering
-			\item Will scale a given fan's innate support level score by the number of adjacent fans around the given fan who are cheering
-		\end {itemize}
-\end {frame}
-
-\begin {frame}
-	\frametitle {A Model for a Single Fan: Cheering Metric ($C_{Total}$) and Cheering Threshold ($C_{Threshold}$)}
-	\begin{itemize}
-		\item Considering to define $C_{Total}$ as follows: \newline
-	\end {itemize}
-	$$C_{Total} = (Innate\ Support\ Level)(Number\ of\ Adjacent\ Fans\ Who\ Are\ Cheering)$$
-	\begin{itemize}
-		\item The following condition must be satisfied for start cheering:\newline
-	\end {itemize}	
-	$$C_{Total}>C_{Threshold}$$
-	\begin{itemize}
-		\item $C_{Threshold}$ is an arbitrary pre-defined parameter
-	\end {itemize}
-\end {frame}
-
-
-\subsection{Multi Fan Model}
+\subsection{Comptutational Simulation}
 
 \begin{frame}
-\frametitle {Multi Fan Model: Matrix Representation of a Crowd}
-	\begin {itemize}
-		\item Considering the use of matrices to represent a large crowd of fans
-		\item Each element in a matrix will represent a fan
-		\item One matrix will store each fan's $C_{Total}$ value, another will store each fan's innate support level score, and another will keep track of which of the fans in the crowd are cheering 
-	\end{itemize}		
+\frametitle{ Step 1: Generating Innate Support Level}
+\begin{itemize}
+\item We generate an arbitrary sized $n$ x $m$ matrix,
+\item  $X$, to represent a $nm$ sized crowd.
+\item   $X_{ij}$ represents fan $ij$. Each element in $X$ corresponds to fan's innate support level for the team.
+Innate support level was generated by sampling from a normal random distribution with a mean of 10 and a standard deviation of 1 as shown in (\ref{1}).
+\end{itemize} 
+\begin{equation}
+X_{ij}\sim Norm(10,1),~\forall~i\in[1,n],~j\in[1,m]
+\label{1}
+\end{equation}
 \end{frame}
 
 \begin{frame}
-\frametitle {Multi Fan Model: Matrix Representation of a Crowd}
-	\begin {itemize}
-		\item Matrices will be long and rectangular to reflect the spatial arrangement of the home team bleachers at Homewood Field
-		\item Due to computatational limits, we will downscale the home team bleachers at Homewood Field and model a home crowd of 100-1000 people
-	\end{itemize}		
+\frametitle{Step 2: Determinining Which Fans are Initially Cheering}
+\begin{itemize}
+\item Set an initial threshold, $T_{init}$ to determine which of the fans in the matrix are \textit{initially} cheering.
+\item A new $n$ x $m$ matrix, $X'$, with each element in $X'$ is initially assigned a value of 1, if the corresponding element in $X$ had a value which was greater than or equal to the initial threshold, otherwise the element is given a value of 0. See (\ref{2}). 
+\item $X'$ is the matrix used to keep track of who is cheering. (1=cheering, 0=not cheering). 
+\end{itemize}
+\begin{equation}
+X'_{ij}=1~if~X_{ij}\geq T_{init},~X'_{ij}=0~if~X_{ij}<T_{init}
+\label{2}
+\end{equation}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Step 3: Including the Influence of Surrounding Fans}
+\begin{itemize}
+\item $S$ is a $n$ x $m$ matrix stores how many people surrounding a given fan are cheering at a given time.
+\item Each element in $S$ has corresponding elements with the same row and column indices in both $X$ and $X'$, all of which store different model values for the same individual fan. 
+\item Define a round, $r$, to be the passing of an arbitrary time interval (approximately 3-5 seconds, in this case). 
+\item $Y$is an $n$ x $m$ matrix compute the individual elements of $Y$ according to (\ref{3}). 
+\end{itemize}
+\begin{equation}
+Y_{ij}=X_{ij}(S_{ij})+r,~\forall~i\in[1,n],~j\in[1,m]
+\label{3}
+\end{equation}
+\item Note:By computing $Y$ as shown in (\ref{3}), the likelihood of a fan starting to cheer increases with the number of surrounding fans who are cheering as well as with the length of time those fans have been cheering(greater $R$ value).
 \end{frame}
 
 \begin{frame}
-\frametitle{Multi Fan Model: Simulation of Time (Cycling)}
+\frametitle{Step 4: Updating Matrices and Comparing to Absolute Threshold}
+\begin{itemize}
+\item Each element in $Y$ represents an individual fan and has corresponding elements in $X$, $X'$, and $S$, with the same row and column indices. 
+\item Elements in $Y$  are compared to an absolute threshold, $T_{absolute}$.
+	\begin{itemize} 
+		\item If an individual's score in $Y$ is greater than or equal to the absolute threshold, the individual will begin to cheer, and we set the corresponding element in $X'$ equal to 1. This is shown in (\ref{4}).
+		\begin{equation}
+			X'_{ij}=1~if~Y_{ij}\geq T_{absolute}
+			\label{4}
+		\end{equation}
+		\item If the individual's score in $Y$ is less than the absolute threshold, corresponding element in $X'$ remains 0.  
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Step 5: Repeating Rounds}
 To simulate the passing of time:
 	\begin {enumerate}
 		\item Setup matrices with appropriate initial conditions (i.e.~randomly assign innate support levels to each fan and choose quantity and location of cheer starters)
 		\item Check to see if any new fans join cheering
-		\item Update matrices
-		\item Repeat for 10 cycles
+		\item Update matrices (i.e.~$X'$ and $Y$)
+		\item Repeat for $R$ rounds
 	\end {enumerate}
-\end{frame}
-
-\begin{frame}
-\frametitle{Multi Fan Model: Simulation of Time (Cycling)}
-	\begin {itemize}
-		\item Each cycle will represent the passing of 3-5 seconds
-		\item We will assume that once a fan starts cheering, he/she will continue cheering until the end of the simulation
-	\end{itemize}
-\end{frame}	
-
-\begin{frame}
-\frametitle{Multi Fan Model: Determining if Cheer Starters Increase Cheering}
-\begin{itemize}
-	\item Repeatedly run the previously described simulation (Monte Carlo methods) and get an average percentage of fan participation in cheering for a given cheer starter setup
-	\item Compare this to simulation results with no cheer starters
-	\item Time permitting, will try using Monte Carlo methods for various cheer starter setups and attempt to identify any patterns in setups which maximize cheering 
-\end{itemize}
 \end{frame}
 
 \section{Results}
@@ -384,7 +344,7 @@ To simulate the passing of time:
 \begin{frame}
 	\frametitle{Monte Carlo Simulation}
 	\begin{itemize}
-		\item For a given $CS$ value, the $CS$ cheer starters were randomly placed in the crowd. The crowd simulation was then ran and the final percentage of cheering fans after 10 rounds was computed.
+		\item For a given $CS$ value, the $CS$ cheer starters were randomly placed in the crowd. The crowd simulation was then ran and the final percentage of cheering fans after 10 rounds was computed as previously described.
 		\item For a given $CS$ value this was procedure was repeated for 1000 trials (Monte Carlo Simulation) and the average final percentage of cheering fans after 10 rounds over the 1000 trials was computed. 
 		\item Repeated this for $1 \leq CS \leq 50$.
 		\item The average final percentage of cheering fans for each $CS$ value was compared to that of when $CS=0$ using a t-test. 
