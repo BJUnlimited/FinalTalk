@@ -338,6 +338,80 @@ To simulate the passing of time:
 \end{itemize}
 \end{frame}
 
+\section{Results}
+
+\begin{frame}
+	\frametitle{Final Parameters}
+	\begin{itemize}
+		\item Rows, $n=20$
+		\item Columns, $m=100$
+		\item Initial Threshold, $T_{init}=11$
+		\item Absolute Threshold, $T_{absolute}=46$
+		\item Rounds, $R=10$
+		\item Number of Cheer Starters, $CS$ (Variable)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Monte Carlo Simulation}
+	\begin{itemize}
+		\item For a given $CS$ value, the $CS$ cheer starters were randomly placed in the crowd. The crowd simulation was then ran and the final percentage of cheering fans after 10 rounds was computed.
+		\item For a given $CS$ value this was procedure was repeated for 1000 trials (Monte Carlo Simulation) and the average final percentage of cheering fans after 10 rounds over the 1000 trials was computed. 
+		\item Repeated this for $1 \leq CS \leq 50$.
+		\item The average final percentage of cheering fans for each $CS$ value was compared to that of when $CS=0$ using a t-test. 
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{$CS\geq 39$ Produces Statistically Significant Increase in Cheering}
+	\begin{itemize}
+		\item When $CS\geq39$, there is a statistically significant $(p<0.05)$ increase in the average final percentage of the crowd who are cheering
+		\item If $CS$ is increased further, the final percentage of the crowd cheering increases, and the p-value decreases
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Final Percent of Crowd Cheering vs Number of Cheer Starters}
+	\begin{figure} [h]
+		\begin{center}
+    			\includegraphics [width=3in] {46(1).jpg}
+    			\caption {{\tiny Final cheering percentage for various $CS$ values.}}
+    		\end{center}
+    	\end {figure}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Percent of Crowd Cheering Over Time For Various $CS$}
+	\begin{figure} [h]
+		\begin{center}
+    			\includegraphics [width=3in] {46(2).jpg}
+    			\caption {{\tiny Percent of crowd cheering over time for various $CS$ values.}}
+    		\end{center}
+    	\end {figure}	
+\end{frame}
+
+\begin{frame}
+    \frametitle{Visualization of Cheering}
+    \begin {columns}
+    	\begin{column}{0.5\textwidth}
+    		\begin{figure}
+    		\begin{center}
+    		  \includegraphics [width=2in] {n=0,46.jpg}
+    			\caption {{\tiny Cheering over time when $CS=0$. White indicates cheering.}}
+    			\end{center}
+    		\end{figure}
+    	\end {column}
+    	\begin {column}{0.5\textwidth}
+    	\begin{figure} [h]
+    		\begin{center}
+    			\includegraphics [width=2in] {n=39,46.jpg}
+    			\caption {{\tiny Cheering over time when $CS=39$. White indicates cheering.}}
+    		\end{center}
+    	\end {figure}	
+    	\end {column}
+    \end{columns}
+\end{frame}
+
 \section {Deliverables and Timeline}
 
 \subsection{Deliverables}
