@@ -71,7 +71,7 @@ Danni Tang\\
 
 \section{Introduction}
 
-\subsection{Importance of Cheering}
+\subsection{Background}
 
 \begin{frame}
 	\frametitle{The Importance of Cheering in Sports}
@@ -80,7 +80,7 @@ Danni Tang\\
 			\item Home crowd advantage effects the result of the game, shown by past research:
 			\begin{itemize}
 				\item In US professional sporting leagues, home teams can win approximately 60\% of the time \cite{Jamieson_2010}
-				\item In US college athletics, home teams can win approximately 66\% of games player \cite{Snyder_1985}
+				\item In US college athletics, home teams can win approximately 66\% of games played \cite{Snyder_1985}
 			\end{itemize}
 		\end {itemize}
 \end{frame}
@@ -89,7 +89,7 @@ Danni Tang\\
 	\frametitle{What is Cheering?}
 		\begin{itemize}
 		\item Home crowd can also improve the ambiance of a sporting event
-		\item Can show support and enhancing the atmosphere by "cheering":
+		\item Can show support and enhancing the atmosphere by ``cheering'':
 		\begin{itemize}
 			\item Chanting the school fight song
 			\item Waving a rally towel
@@ -99,8 +99,6 @@ Danni Tang\\
 	\item Cheering is essential at collegiate sporting events; improves experience for both teams and the fans
 	\end{itemize}
 \end{frame}
-
-\subsection{The Johns Hopkins Blue Jays}
 
 \begin{frame}
 	\frametitle{The Johns Hopkins Blue Jays}
@@ -114,8 +112,6 @@ Danni Tang\\
 		\end{itemize}
 	\end{itemize}
 \end{frame}
-
-\subsection{Sponsor Information}
 
 \begin{frame}
 	\frametitle{Who are Blue Jays Unlimited?}
@@ -145,7 +141,7 @@ Danni Tang\\
 		\begin {itemize}
 			\item Raised more than \$4 million in funds to improve experience for JHU student athletes and fans alike \cite{bjuwebsite}
 			\item Funds provide money for capital projects as well as scholarships and operational endowments \cite{bjuwebsite}
-			\item Past projects include renovation of the Newton H.~White Athletic Center and recognition banners for championship teams. \cite{bjuwebsite}
+			\item Past projects include renovation of the Newton H.~White Athletic Center and recognition banners for championship teams \cite{bjuwebsite}
 		\end {itemize}
 	\end {column}
 	\begin{column} {0.5\textwidth}
@@ -243,13 +239,16 @@ Danni Tang\\
 		\end {itemize}
 \end{frame}
 
-\section{Analysis and Simualtion}
+\section{Analysis and Simulation}
 \begin{frame}
 \frametitle{Simplifications and Assumptions}
 \begin{itemize}
-	\item The willingness of a fan in a crowd to cheer depends on the number of people cheering around the given fan and how long the surrounding people have been cheering. 
-	\item The greater the number of people surrounding a fan who are cheering, and the longer the surrounding people have been cheering, the more likely that fan will start to cheer.
-	\item The innate support level a fan has for the team also influences the willingness of that fan to start cheering.
+	\item The willingness of a fan in a crowd to cheer depends on:
+	\begin{itemize}
+	 	\item Number of people cheering around the fan
+	 	\item Cheering duration
+	 	\item Innate support level
+	\end{itemize}
 	\item A cheering fan continues cheering until the end of the simulation.
 	\item The performance of the sports team does NOT influence cheering.
 	\end{itemize}
@@ -258,7 +257,7 @@ Danni Tang\\
 \subsection{Comptutational Simulation}
 
 \begin{frame}
-\frametitle{ Step 1: Generating Innate Support Level}
+\frametitle{Step 1: Generating Innate Support Level}
 \begin{itemize}
 \item We generate an arbitrary sized $n$ x $m$ matrix,
 \item  $X$, to represent a $nm$ sized crowd.
@@ -272,11 +271,22 @@ X_{ij}\sim Norm(10,1),~\forall~i\in[1,n],~j\in[1,m]
 \end{frame}
 
 \begin{frame}
+	\frametitle{Step 1: Generating Innate Support Level}
+	\begin{figure}
+		\begin{center}
+		\includegraphics[width=3in] {NormDistribution.jpg}
+		\end{center}
+		\caption{A Normal Distribution with mean 10 and standard deviation 1}
+		\label{fig:normdistribution}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
 \frametitle{Step 2: Determinining Which Fans are Initially Cheering}
 \begin{itemize}
-\item Set an initial threshold, $T_{init}$ to determine which of the fans in the matrix are \textit{initially} cheering.
-\item A new $n$ x $m$ matrix, $X'$, with each element in $X'$ is initially assigned a value of 1, if the corresponding element in $X$ had a value which was greater than or equal to the initial threshold, otherwise the element is given a value of 0. See (\ref{2}). 
-\item $X'$ is the matrix used to keep track of who is cheering. (1=cheering, 0=not cheering). 
+\item Set an initial threshold, $T_{init}$ to determine which of the fans in the matrix are \textit{initially} cheering. 
+\item A new $n$ x $m$ matrix $X'$ is used to keep track of who is cheering. 
+\item Elements in $X'$ assigned according to \eqref{2} where 1=cheering and 0=not cheering.
 \end{itemize}
 \begin{equation}
 X'_{ij}=1~if~X_{ij}\geq T_{init},~X'_{ij}=0~if~X_{ij}<T_{init}
@@ -289,24 +299,30 @@ X'_{ij}=1~if~X_{ij}\geq T_{init},~X'_{ij}=0~if~X_{ij}<T_{init}
 \frametitle{Step 3: Including the Influence of Surrounding Fans}
 \begin{itemize}
 \item $S$ is a $n$ x $m$ matrix stores how many people surrounding a given fan are cheering at a given time.
-\item Each element in $S$ has corresponding elements with the same row and column indices in both $X$ and $X'$, all of which store different model values for the same individual fan. 
+\item Each element in $S$ has corresponding elements with the same row and column indices in both $X$ and $X'$
 \item Define a round, $r$, to be the passing of an arbitrary time interval (approximately 3-5 seconds, in this case). 
-\item $Y$is an $n$ x $m$ matrix compute the individual elements of $Y$ according to (\ref{3}). 
+\item $Y$ is an $n$ x $m$ matrix compute the individual elements of $Y$ according to (\ref{3}). 
 \end{itemize}
 \begin{equation}
 Y_{ij}=X_{ij}(S_{ij})+r,~\forall~i\in[1,n],~j\in[1,m]
 \label{3}
 \end{equation}
-\item Note:By computing $Y$ as shown in (\ref{3}), the likelihood of a fan starting to cheer increases with the number of surrounding fans who are cheering as well as with the length of time those fans have been cheering(greater $R$ value).
 \end{frame}
+
+\begin{frame}
+	\frametitle{Step 3: Including the Influence of Surrounding Fans}
+		\begin{itemize}
+		\item By computing $Y$ as shown in (\ref{3}), the likelihood of a fan starting to cheer increases with the number of surrounding cheering fans who and their cheering duration.
+		\end {itemize}
+\end{frame}	 
 
 \begin{frame}
 \frametitle{Step 4: Updating Matrices and Comparing to Absolute Threshold}
 \begin{itemize}
 \item Each element in $Y$ represents an individual fan and has corresponding elements in $X$, $X'$, and $S$, with the same row and column indices. 
-\item Elements in $Y$  are compared to an absolute threshold, $T_{absolute}$.
+\item Elements in $Y$  are compared to an absolute threshold, $T_{absolute}$. \newline
 	\begin{itemize} 
-		\item If an individual's score in $Y$ is greater than or equal to the absolute threshold, the individual will begin to cheer, and we set the corresponding element in $X'$ equal to 1. This is shown in (\ref{4}).
+		\item We update $X'$ according to (\ref{4}).
 		\begin{equation}
 			X'_{ij}=1~if~Y_{ij}\geq T_{absolute}
 			\label{4}
@@ -320,7 +336,7 @@ Y_{ij}=X_{ij}(S_{ij})+r,~\forall~i\in[1,n],~j\in[1,m]
 \frametitle{Step 5: Repeating Rounds}
 To simulate the passing of time:
 	\begin {enumerate}
-		\item Setup matrices with appropriate initial conditions (i.e.~randomly assign innate support levels to each fan and choose quantity and location of cheer starters)
+		\item Setup matrices with appropriate initial conditions
 		\item Check to see if any new fans join cheering
 		\item Update matrices (i.e.~$X'$ and $Y$)
 		\item Repeat for $R$ rounds
@@ -330,7 +346,7 @@ To simulate the passing of time:
 \section{Results}
 
 \begin{frame}
-	\frametitle{Final Parameters}
+	\frametitle{Final Parameter Values}
 	\begin{itemize}
 		\item Rows, $n=20$
 		\item Columns, $m=100$
@@ -344,7 +360,7 @@ To simulate the passing of time:
 \begin{frame}
 	\frametitle{Monte Carlo Simulation}
 	\begin{itemize}
-		\item For a given $CS$ value, the $CS$ cheer starters were randomly placed in the crowd. The crowd simulation was then ran and the final percentage of cheering fans after 10 rounds was computed as previously described.
+		\item For a given $CS$ value, the $CS$ cheer starters were randomly placed in crowd. The crowd simulation was run and the final percentage of cheering fans after 10 rounds was computed as previously described.
 		\item For a given $CS$ value this was procedure was repeated for 1000 trials (Monte Carlo Simulation) and the average final percentage of cheering fans after 10 rounds over the 1000 trials was computed. 
 		\item Repeated this for $1 \leq CS \leq 50$.
 		\item The average final percentage of cheering fans for each $CS$ value was compared to that of when $CS=0$ using a t-test. 
@@ -407,24 +423,24 @@ To simulate the passing of time:
 
 \begin{frame}
 	\frametitle{Deliverables}
-	The model will be coded on MATLAB R2009b. All computations will be performed on a Intel Core i7 Desktop PC. \newline
+	The model was coded on MATLAB R2009b. All computations were performed on a Intel Core i7 Desktop PC. \newline
 	\end{frame}
 
 \begin{frame}
-	\frametitle{Deliverables}
+	\frametitle{Checklist of Deliverables}
 	From Team to Sponsor:
 	\begin {itemize}
-	\item MATLAB R2009b and R combination package. The model will be coded in MATLAB but a complete set of documentation will be provided in R. We will also generate some test scripts that can be used to reproduce our numerical and simulation test results
-	\item If time permits, a list of patterns of cheer starter setups (i.e.~the number of cheer starters and location of them) that maximize fan cheering
-	\item Technical report and presentations summarizing the work \newline
+	\item MATLAB R2009b and R combination package with test scripts that can be used to reproduce our numerical and simulation test results. (In Final Stages)
+		\item Technical report and presentations summarizing the work (In Final Stages)
+	\item If time permits, a list of patterns of cheer starter setups (i.e.~the number of cheer starters and location of them) that maximize fan cheering (Future Research Recommendations)
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Deliverables}
+	\frametitle{Checklist of Deliverables}
 	From Sponsor to Team:
 	\begin{itemize}
-		\item Timely responses to inquiries
+		\item Timely responses to inquiries (Responses have been timely)
 	\end{itemize}
 \end{frame}
 
@@ -433,11 +449,8 @@ To simulate the passing of time:
 \begin{frame}
 	\frametitle{Timeline of Milestones}
 	\begin{itemize}
-    \item Work Statement due date, Sep 28, 2012.
-    \item Midterm Presentation due date, Oct 17, 2012.
-    \item Progress Report due date, Oct 26, 2012.
-    \item Final Presentation due date, Nov 16, 2012.
-    \item Final Report due date, Nov 30, 2012.
+    \item Final Presentation due Nov 28, 2012.
+    \item Final Report and Deliverables due Dec 20, 2012.
 	\end{itemize}
 \end{frame}
 
@@ -448,10 +461,9 @@ To simulate the passing of time:
 \begin{frame}
 	\frametitle{Remaining Work}
 	\begin {itemize}
-		\item Begin coding the model in MATLAB.
-		\item Run simulations using the model.
-		\item Time permitting, try to find patterns in cheer starter setups which maximize cheering.
-	\end {itemize}
+		\item Finalize Matlab/R combination package
+		\item Finish Final Report 
+		\end {itemize}
 \end{frame}
 
 \subsection{Recommendations for Future Research}
@@ -460,6 +472,7 @@ To simulate the passing of time:
 	\frametitle {Recommendations for Future Research}
 	\begin {itemize}
 		\item It would be interesting to see if this model could be applied to other social events (concerts, college lectures, theaters, etc.) where there are large crowds and applause is relevant.
+		\item Attempt to find patterns in cheer starter placements which maximize cheering.
 	\end {itemize}
 \end{frame}
 
@@ -467,7 +480,7 @@ To simulate the passing of time:
 
 \begin {frame} [allowframebreaks]
 	\frametitle{References}
-	\bibliographystyle{plain}
+	\bibliographystyle{ieeetr}
 	%\nocite{*}
 	\bibliography{extra/biblioWS}
 \end {frame}
