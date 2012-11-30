@@ -77,18 +77,18 @@ Danni Tang\\
 	\frametitle{The Importance of Cheering in Sports}
 		\begin {itemize}
 			\item A loud and supportive home crowd is the ultimate home team advantage for sports teams
-			\item Home crowd advantage effects the result of the game, shown by past research:
+			\item Home crowd advantage affects the result of the game, shown by past research:
 			\begin{itemize}
 				\item In US professional sporting leagues, home teams can win approximately 60\% of the time \cite{Jamieson_2010}
 				\item In US college athletics, home teams can win approximately 66\% of games played \cite{Snyder_1985}
 			\end{itemize}
+					\item Home crowd can also improve the ambiance of a sporting event
 		\end {itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{What is Cheering?}
 		\begin{itemize}
-		\item Home crowd can also improve the ambiance of a sporting event
 		\item Can show support and enhancing the atmosphere by ``cheering'':
 		\begin{itemize}
 			\item Chanting the school fight song
@@ -161,47 +161,27 @@ Danni Tang\\
 \item BJU is present at nearly all major JHU sporting events
 \item Encourage fans to cheer on their Blue Jays to victory in a vociferous and family-friendly manner
 \item BJU is interested in maximizing the amount of fan participation in cheering at sporting events to provide the ultimate advantage: a spirited home crowd
-\item They believe they can increase fan participation in cheering events by strategically placing ``cheer starters"--student volunteers who lead and urge other fans around them to cheer
+\item They believe they can increase fan participation in cheering events by strategically placing student-volunteer ``cheer starters" in the crowd. 
 \end{itemize}
 \end{frame}
 
 \section{Problem Statement}
-
-\subsection{Problem Statement Background}
-
-\begin{frame}
-	\frametitle{Problem Statement Background: Why is Cheering Important?}
-	\begin{itemize}
-	\item A loud and supportive home crowd is the ultimate home team advantage to any collegiate sports team
-	\item Fan participation in events such as chanting the school fight song, waving a rally towel, doing the wave, or general applause, show support for the home team as well as enhance the general atmosphere of a sporting event
-	\item Note that we will hence refer to all these activities as ``cheering''
-	\end{itemize}
-\end{frame}
 
 \subsection{Official Problem Statement}
 
 \begin{frame}
 	\frametitle{Official Problem Statement}
 		\begin{itemize}
-			\item BJU wants to know if ``cheer starters'' can actually increase cheering and also want a simple model of fan participation in cheering.
+			\item BJU wants to know if ``cheer starters'' can actually increase cheering and wants a simple model of fan participation in cheering.
 		\end{itemize}
 \end{frame}
 
 \section {Objectives}
 
-\begin{frame}
-	\frametitle{Objective Statements}
-		\begin{itemize}
-			\item Our task is to provide BJU with a simple model of fan participation in cheering at Homewood Field
-			\item We will also provide simulation results from the model which determine if their belief about cheer starters is accurate
-			\item If cheer starters are effective, and time permitting, we will provide BJU with details about the quantity and location at which cheer starters should be placed in order to maximize cheering
-		\end{itemize}
-\end{frame}
-
 \subsection{Important Details to Consider}
 
 \begin{frame}
-	\frametitle {Important Details To Consider}
+	\frametitle {Important Details to Consider}
 	\begin {columns}
 		\begin {column}{0.5\textwidth}
 		\begin{itemize}
@@ -232,14 +212,15 @@ Danni Tang\\
 \subsection{Official Objectives}
 
 \begin{frame}
-	\frametitle {Official Objectives}
-	\begin {itemize}
-		\item Our task is to provide BJU with a simple model of fan participation in cheering at Homewood Field in the home team bleachers as well as simulation results from the model which determine if their belief about cheer starters is accurate.
-		\item If cheer starters are found to be effective, we will attempt to provide BJU with more details about the quantity and location at which cheer starters should be placed in order to maximize cheering.
-		\end {itemize}
+	\frametitle{Objective Statements}
+		\begin{itemize}
+			\item Provide BJU with a simple model of fan participation in cheering at Homewood Field
+			\item Provide simulation results from the model which determine if cheer starters are effective in increasing cheering
+			\item If cheer starters are effective, and time permitting, we will provide BJU with details about the quantity and locations at which cheer starters should be placed in order to maximize cheering
+		\end{itemize}
 \end{frame}
 
-\section{Analysis and Simulation}
+\section{Mathematical Approach and Simulation}
 \begin{frame}
 \frametitle{Simplifications and Assumptions}
 \begin{itemize}
@@ -259,10 +240,10 @@ Danni Tang\\
 \begin{frame}
 \frametitle{Step 1: Generating Innate Support Level}
 \begin{itemize}
-\item We generate an arbitrary sized $n$ x $m$ matrix,
-\item  $X$, to represent a $nm$ sized crowd
+\item We generate an arbitrarily sized $n$ x $m$ matrix,
+\item  $X$, to represent an $nm$ sized crowd
 \item   $X_{ij}$ represents fan $ij$. Each element in $X$ corresponds to fan's innate support level for the team
-Innate support level was generated by sampling from a normal random distribution with a mean of 10 and a standard deviation of 1 as shown in (\ref{1})
+\item 	Generated by sampling from a normal random distribution with a mean of 10 and a standard deviation of 1 as shown in (\ref{1})
 \end{itemize} 
 \begin{equation}
 X_{ij}\sim Norm(10,1),~\forall~i\in[1,n],~j\in[1,m]
@@ -282,7 +263,7 @@ X_{ij}\sim Norm(10,1),~\forall~i\in[1,n],~j\in[1,m]
 \end{frame}
 
 \begin{frame}
-\frametitle{Step 2: Determinining Which Fans are Initially Cheering}
+\frametitle{Step 2: Determining Which Fans are Initially Cheering}
 \begin{itemize}
 \item Set an initial threshold, $T_{init}$ to determine which of the fans in the matrix are \textit{initially} cheering
 \item A new $n$ x $m$ matrix $X'$ is used to keep track of who is cheering 
@@ -301,25 +282,25 @@ X'_{ij}=1~if~X_{ij}\geq T_{init},~X'_{ij}=0~if~X_{ij}<T_{init}
 \item $S$ is a $n$ x $m$ matrix stores how many people surrounding a given fan are cheering at a given time
 \item Each element in $S$ has corresponding elements with the same row and column indices in both $X$ and $X'$
 \item Define a round, $r$, to be the passing of an arbitrary time interval (approximately 3-5 seconds, in this case) 
-\item $Y$ is an $n$ x $m$ matrix compute the individual elements of $Y$ according to (\ref{3})
 \end{itemize}
-\begin{equation}
-Y_{ij}=X_{ij}(S_{ij})+r,~\forall~i\in[1,n],~j\in[1,m]
-\label{3}
-\end{equation}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Step 3: Including the Influence of Surrounding Fans}
 		\begin{itemize}
-		\item By computing $Y$ as shown in (\ref{3}), the likelihood of a fan starting to cheer increases with the number of surrounding cheering fans who and their cheering duration.
+		\item $Y$ is an $n$ x $m$ matrix constructed according to (\ref{3})
+		\item Each element in $Y$ represents an individual fan and has corresponding elements in $X$, $X'$, and $S$, with the same row and column indices.	
+		\begin{equation}
+				Y_{ij}=X_{ij}S_{ij}+r,~\forall~i\in[1,n],~j\in[1,m]
+		\label{3}
+		\end{equation}
+		\item By computing $Y$ as shown in (\ref{3}), the likelihood of a fan starting to cheer increases with the number of surrounding cheering fans and their cheering duration.
 		\end {itemize}
 \end{frame}	 
 
 \begin{frame}
-\frametitle{Step 4: Updating Matrices and Comparing to Absolute Threshold}
-\begin{itemize}
-\item Each element in $Y$ represents an individual fan and has corresponding elements in $X$, $X'$, and $S$, with the same row and column indices. 
+\frametitle{Step 4: Compare Y to Absolute Threshold and Update Matrices}
+\begin{itemize} 
 \item Elements in $Y$  are compared to an absolute threshold, $T_{absolute}$ \newline
 	\begin{itemize} 
 		\item We update $X'$ according to (\ref{4})
@@ -336,10 +317,9 @@ Y_{ij}=X_{ij}(S_{ij})+r,~\forall~i\in[1,n],~j\in[1,m]
 \frametitle{Step 5: Repeating Rounds}
 To simulate the passing of time:
 	\begin {enumerate}
-		\item Setup matrices with appropriate initial conditions
 		\item Check to see if any new fans join cheering
 		\item Update matrices (i.e.~$X'$ and $Y$)
-		\item Repeat for $R$ rounds
+		\item Repeat steps 2 and 3 for $R$ rounds
 	\end {enumerate}
 \end{frame}
 
@@ -358,6 +338,25 @@ To simulate the passing of time:
 \end{frame}
 
 \begin{frame}
+\frametitle{Testing Values for $T_{init}$ and $T_{absolute}$}
+\begin{center}
+\begin{figure}[h]
+\begin{tiny}\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\textbf{Round}&1&2&3&4&5&6&7&8&9&10\\\hline
+\textbf{$T_{init}=10$, $T_{abs}=46$}&49.7&74.2&87.15&93.8&97.4&98.85&99.95&99.95&99.95&99.95\\\hline
+\textbf{$T_{init}=11$, $T_{abs}=65$}&15.1&15.1&15.15&15.15&15.2&15.35&15.4&15.55&15.65&15.75\\\hline
+\textbf{$T_{init}=11$, $T_{abs}=60$}&15.95&16.1&16.15&16.2&16.3&16.4&16.45&16.65&16.75&17.05\\\hline
+\textbf{$T_{init}=11$, $T_{abs}=40$}&15.5&21.2&29.15&39.35&52&65.15&76.85&85.5&91.4&95.35\\\hline
+\textbf{$T_{init}=11$, $T_{abs}=46$}&15.5&16.65&18.05&20&23.15&27.8&34&42.2&52.2&63.8\\\hline
+\end{tabular}
+\end{tiny}
+\caption{{\tiny Percent of cheering crowd over rounds for some combinations of $T_{init}$ and $T_{absolute}$ values.}}
+\end{figure}
+\end{center}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Monte Carlo Simulation}
 	\begin{itemize}
 		\item For a given $CS$ value, the $CS$ cheer starters were randomly placed in crowd. The crowd simulation was run and the final percentage of cheering fans after 10 rounds was computed as previously described.
@@ -371,28 +370,64 @@ To simulate the passing of time:
 	\frametitle{$CS\geq 39$ Produces Statistically Significant Increase in Cheering}
 	\begin{itemize}
 		\item When $CS\geq39$, there is a statistically significant $(p<0.05)$ increase in the average final percentage of the crowd who are cheering.
-		\item If $CS$ is increased further, the final percentage of the crowd cheering increases, and the p-value decreases.
+		\item If $CS$ is increased further, the average final percentage of the cheering fans increases, and the p-value decreases.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Final Percent of Crowd Cheering vs Number of Cheer Starters}
+	\frametitle{Average Final Percentage of Cheering Fans vs Number of Cheer Starters}
 	\begin{figure} [h]
 		\begin{center}
     			\includegraphics [width=3in] {46(1).jpg}
-    			\caption {{\tiny Final cheering percentage for various $CS$ values.}}
+    			\caption {{\tiny Average final percentage of cheering fans for various $CS$ values.}}
     		\end{center}
     	\end {figure}	
 \end{frame}
 
 \begin{frame}
-	\frametitle{Percent of Crowd Cheering Over Time For Various $CS$}
+\frametitle{Average Final Percentage of Cheering Fans vs Number of Cheer Starters}
+\begin{figure}[h]
+\begin{center}
+\begin{tiny}\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+\textbf{Number of Cheer Starters}&0&10&20&30&39&50\\\hline
+\textbf{Average Final Percentage of Cheering Fans}&63.069&65.346&67.919&70.409&72.533&74.544\\\hline
+\textbf{P-value}&0.5&0.34413&0.19637&0.097951&0.047687&0.021585\\\hline
+\end{tabular}
+\end{tiny}
+\caption{{\tiny Average final percentage of cheering fans for various $CS$ values.}}
+\end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Percent of Cheering Fans Over Time For Various $CS$}
 	\begin{figure} [h]
 		\begin{center}
     			\includegraphics [width=3in] {46(2).jpg}
-    			\caption {{\tiny Percent of crowd cheering over time for various $CS$ values.}}
+    			\caption {{\tiny The percentage of cheering fans over time for various $CS$ values.}}
     		\end{center}
     	\end {figure}	
+\end{frame}
+
+\begin{frame}
+\frametitle{Percentage of Cheering Fans Over Time For Various $CS$}
+\begin{figure}
+\begin{center}
+	\begin{tiny}\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Round}&1&3&7&10\\\hline
+\textbf{CS=0}&15.875&19.285&35.67&63.069\\\hline
+\textbf{CS=10}&16.266&19.936&37.307&65.346\\\hline
+\textbf{CS=20}&16.686&20.717&39.246&67.919\\\hline
+\textbf{CS=30}&17.13&21.53&41.284&70.409\\\hline
+\textbf{CS=39}&17.519&22.261&43.088&72.533\\\hline
+\textbf{CS=50}&17.908&23.002&44.936&74.544\\\hline
+\end{tabular}
+\end{tiny}
+\end{center}
+\caption{{\tiny The percentage of cheering fans over time for various $CS$ values.}}
+\end{figure}
 \end{frame}
 
 \begin{frame}
@@ -484,6 +519,11 @@ To simulate the passing of time:
 	%\nocite{*}
 	\bibliography{extra/biblioWS}
 \end {frame}
+
+\begin{frame}
+\frametitle{Acknowledgements}
+We would like to thank Professor Nam H.~Lee for his support and academic guidance as well as our classmates for their support.
+\end{frame}
 
 \begin{frame}
 	\frametitle {Questions?}
